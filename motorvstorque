@@ -1,0 +1,79 @@
+import pandas as pd
+
+data=pd.read_excel('traneff_pa2_boopa.xlsx')
+
+data.drop(columns=[list(data.columns)[-2],list(data.columns)[-1]],inplace=True)
+
+data
+
+import matplotlib.pyplot as plt
+
+import numpy as np
+import matplotlib as mtl
+import matplotlib.pyplot as plt
+from matplotlib import ticker, cm
+
+# read_file=pd.read_excel(r'D:\work1\traneff_pa2_boopa.xlsx')
+
+# read_file.to_csv(r'D:\work1\traneff_pa2_boopa.csv',index=None,header=True)
+
+# data=pd.read_csv("traneff_pa2_boopa.csv")
+
+for i in list(data.columns):
+    data[i]=data[i].replace({0:np.nan})
+
+data
+
+arr=data.to_numpy()
+
+print(arr)
+
+yp=arr[:,0]
+zp=arr[:,1:]
+
+#header=data.iloc[0][0]
+print(data.columns[1:])
+
+#xp= [100,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000]
+xp = list(data.columns)[1:]
+print(xp)
+print(zp)
+print(yp)
+
+
+print(len(xp),len(yp),len(zp))
+
+xlabels_t = ['4000','5000','6000','7000','8000','9000','10000']
+
+plt.figure()
+
+ab=[50,55,60,65,70,75,80,85,90,95,100]
+
+import matplotlib
+plt.figure(figsize=[15,5])
+
+p1=plt.contour(xp,yp,zp,colors='b', levels=ab,alpha=1, linestyles='dotted')
+
+#p1=plt.contour(xp,yp,zp,colors='k', levels=np.linspace(80,100,num=30), linestyles='dotted')
+p2=plt.contourf(xp,yp,zp,5000,levels=ab, cmap=matplotlib.cm.get_cmap('brg'))
+plt.scatter(list(data1['rpm']),list(data1['torque']), cmap='red',alpha=.7, s=10)
+plt.clabel(p1,inline=1,fontsize=10)
+plt.clim(0,100)
+plt.colorbar()
+plt.title('Efficiency graph for PA')
+plt.xlabel('Motor Speed (in rpm)')
+plt.ylabel('Motor Torque (in N-m)')
+plt.grid(color='g')
+plt.savefig("alpha pa2.jpg",dpi=2000)
+#plt.grid(b=True,which="minor")
+plt.show()
+# plt.savefig("alpha HT.png")
+
+data1=pd.read_excel('to_Subal_13Sep22.xlsx')
+data1.drop('time (s)',axis=1,inplace=True)
+data1.columns=['torque','rpm']
+data1=data1[data1['torque']>=2]
+data1=data1[data1['rpm']>=89]
+data1
+data1.tail(200)
+
